@@ -21,7 +21,7 @@ namespace WindowsFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            label1.Text = Cuneiform.getCuneiformNumber(1);
+            label1.Text = Cuneiform.getCuneiformNumber(Convert.ToInt16(textBox1.Text));
         }
     }
 }

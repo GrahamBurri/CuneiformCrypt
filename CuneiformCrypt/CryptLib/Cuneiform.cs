@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace CryptLib
 {
@@ -15,10 +16,16 @@ namespace CryptLib
         private const int SEVEN = 0x1241B;
         private const int EIGHT = 0x1241C;
         private const int NINE = 0x1241D;
+        private static int[] NUMS = new int[] { 0, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE }; // Can't be constant?
 
         public static string getCuneiformNumber(int decimalNumber)
         {
+            if(decimalNumber < 10)
+            {
+                return Char.ConvertFromUtf32(NUMS[decimalNumber]);
+            }
             return Char.ConvertFromUtf32(ONE);
+            
         }
     }
 }

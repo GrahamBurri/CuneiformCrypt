@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 
 namespace CryptLib
 {
@@ -77,7 +78,7 @@ namespace CryptLib
             return (Char.ConvertFromUtf32(TENS[tensCount]) + convertDecimal(decimalNumber));
         }
 
-        public static Queue<Int64> bytesToInt64Queue(byte[] bytes)
+        internal static Queue<Int64> bytesToInt64Queue(byte[] bytes)
         {
             var acc = new Queue<Int64>();
             var byteQueue = new Queue<byte>(bytes);
@@ -111,7 +112,7 @@ namespace CryptLib
             return acc;
         }
 
-        public static String processIntegerQueue(Queue<Int64> queue)
+        internal static String processIntegerQueue(Queue<Int64> queue)
         {
             string acc = String.Empty;
 
@@ -122,5 +123,17 @@ namespace CryptLib
 
             return acc;
         }
+
+        // Requires prior path validation
+        // Also doesn't seem to work
+        /*
+        public static void fileToCuneiform(string from, string to)
+        {
+            byte[] contents = File.ReadAllBytes(from);
+            Queue<Int64> queue = bytesToInt64Queue(contents);
+            string cuneiform = processIntegerQueue(queue);
+            File.WriteAllText(to, cuneiform);
+        }
+        */
     }
 }

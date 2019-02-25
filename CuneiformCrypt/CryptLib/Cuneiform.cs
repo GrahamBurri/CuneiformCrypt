@@ -28,8 +28,8 @@ namespace CryptLib
         //private const int FIFTY = 0x12422;
 
         // Babylonian U. For some reason, unicode contains U characters up to 9, but we only need up to 5.
-        private const int TEN = 0x1230B; 
-        private const int TWENTY = 0x12399; 
+        private const int TEN = 0x1230B;
+        private const int TWENTY = 0x12471; // 0x12399; // Apparently MS hasn't updated Segoe UI Historic since 12399 was introduced, so we'll need to find an alternative
         private const int THIRTY = 0x1230D;
         private const int FORTY = 0x1240F; // 12469 variant
         private const int FIFTY = 0x12410; // 1246A variant
@@ -38,7 +38,13 @@ namespace CryptLib
         private static int[] TENS = new int[] { 0, TEN, TWENTY, THIRTY, FORTY, FIFTY };
 
         // Not entirely sure how to get a larger address size on the ints here. Investigation is needed
-        // Fails given 5123
+        // Efficency can probably be improved here
+
+        /// <summary>
+        /// Given an integer, return the corresponding cuneiform numeral as a string.
+        /// </summary>
+        /// <param name="decimalNumber"></param>
+        /// <returns></returns>
         public static string getCuneiformNumber(Int64 decimalNumber)
         {
             int[] sixties = new int[5] { 0, 0, 0, 0, 0 };

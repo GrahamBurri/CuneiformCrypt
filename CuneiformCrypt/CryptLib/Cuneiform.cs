@@ -76,5 +76,51 @@ namespace CryptLib
 
             return (Char.ConvertFromUtf32(TENS[tensCount]) + convertDecimal(decimalNumber));
         }
+
+        public static Queue<Int64> bytesToInt64Queue(byte[] bytes)
+        {
+            var acc = new Queue<Int64>();
+            var byteQueue = new Queue<byte>(bytes);
+            int extra = byteQueue.ItemsRemaining % 8; // How many extra bytes do we have?
+
+            byte[] header = new byte[8];
+
+            if (extra > 0)
+            {
+                for (int i = 0; i < extra; i++)
+                {
+                    // Populate the end of the array with the bytes
+                    header[7 - extra + i] = byteQueue.Dequeue();
+                }
+                // Queue up those numbers for processing
+                acc.Enqueue(BitConverter.ToInt64(header, 0));
+            }
+
+            while(byteQueue.ItemsRemaining > 0)
+            {
+                byte[] bytesToProcess = new byte[8];
+                for (int i = 0; i < 8; i++)
+                {
+                    // Put 8 bytes from queue into array for conversion
+                    bytesToProcess[i] = byteQueue.Dequeue();
+                }
+                // Queue up those numbers for processing
+                acc.Enqueue(BitConverter.ToInt64(bytesToProcess, 0));
+            }
+
+            return acc;
+        }
+
+        public static String processIntegerQueue(Queue<Int64> queue)
+        {
+            string acc = String.Empty;
+
+            while(queue.ItemsRemaining > 0)
+            {
+                acc += getCuneiformNumber(queue.Dequeue());
+            }
+
+            return acc;
+        }
     }
 }

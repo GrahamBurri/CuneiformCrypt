@@ -28,30 +28,5 @@ namespace WindowsFormsApp1
         {
             Clipboard.SetText(label1.Text);
         }
-
-        private void encodeFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog read = new OpenFileDialog())
-            {
-                read.RestoreDirectory = true;
-
-                if (read.ShowDialog() == DialogResult.OK)
-                {
-                    var frompath = read.FileName;
-
-                    using (SaveFileDialog write = new SaveFileDialog())
-                    {
-                        write.RestoreDirectory = true;
-
-                        if (write.ShowDialog() == DialogResult.OK)
-                        {
-                            var topath = write.FileName;
-                            Cuneiform.fileToCuneiform(frompath, topath);
-                            MessageBox.Show("File " + frompath + " converted to " + topath);
-                        }
-                    }
-                }
-            }
-        }
     }
 }

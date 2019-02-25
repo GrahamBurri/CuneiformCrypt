@@ -12,23 +12,33 @@ namespace CryptLib
         private const int ONE = 0x12415;
         private const int TWO = 0x12416;
         private const int THREE = 0x12417;
-        private const int FOUR = 0x12418;
+        private const int FOUR = 0x12418; //1243C variant Limmu
         private const int FIVE = 0x12419;
         private const int SIX = 0x1241A;
-        private const int SEVEN = 0x1241B;
+        private const int SEVEN = 0x1241B; // 12442 variant
         private const int EIGHT = 0x1241C;
         private const int NINE = 0x1241D;
 
-        private const int TEN = 0x1241E; // I'm pretty sure that these "geshu" characters are the correct ones
-        private const int TWENTY = 0x1241F;
-        private const int THIRTY = 0x12420;
-        private const int FORTY = 0x12421;
-        private const int FIFTY = 0x12422;
+        // "Geshu" variants- I can't find what these are supposed to be used for, but I'll leave them here for legacy purposes
+        //private const int TEN = 0x1241E;
+        //private const int TWENTY = 0x1241F;
+        //private const int THIRTY = 0x12420;
+        //private const int FORTY = 0x12421;
+        //private const int FIFTY = 0x12422;
+
+        // Babylonian U. For some reason, unicode contains U characters up to 9, but we only need up to 5.
+        private const int TEN = 0x1230B; 
+        private const int TWENTY = 0x12399; 
+        private const int THIRTY = 0x1230D;
+        private const int FORTY = 0x1240F; // 12469 variant
+        private const int FIFTY = 0x12410; // 1246A variant
 
         private static int[] NUMS = new int[] { ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE }; // Can't be constant?
         private static int[] TENS = new int[] { 0, TEN, TWENTY, THIRTY, FORTY, FIFTY };
 
-        public static string getCuneiformNumber(int decimalNumber)
+        // Not entirely sure how to get a larger address size on the ints here. Investigation is needed
+        // Fails given 5123
+        public static string getCuneiformNumber(Int64 decimalNumber)
         {
             int[] sixties = new int[5] { 0, 0, 0, 0, 0 };
 
@@ -48,10 +58,10 @@ namespace CryptLib
             }
             return firstPart + convertDecimal(decimalNumber);
         }
-        private static String convertDecimal(int decimalNumber)
+        private static String convertDecimal(Int64 decimalNumber)
         {
             // We'll need to limit values to 5 places base-60 to avoid running up against the integer limit for now
-            int oldDecimal = decimalNumber;
+            Int64 oldDecimal = decimalNumber;
             int tensCount = 0; // this value should never be zero
 
             if (decimalNumber < 10)

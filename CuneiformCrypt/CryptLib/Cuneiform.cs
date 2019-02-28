@@ -102,7 +102,7 @@ namespace CryptLib
 
             while (queue.ItemsRemaining > 0)
             {
-                acc += getCuneiformNumber(queue.Dequeue());
+                acc += " " + getCuneiformNumber(queue.Dequeue());
             }
 
             return acc;

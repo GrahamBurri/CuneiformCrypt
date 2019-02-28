@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CryptLib;
+using System.IO;
 
 namespace WindowsFormsApp1
 {
@@ -27,6 +28,18 @@ namespace WindowsFormsApp1
         private void button2_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(label1.Text);
+        }
+
+        private void encryptFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Replace with File Dialogs
+            var from = "C:\\Users\\th1nk\\Dropbox\\YAL\\LastAction.txt";
+            var to = "C:\\Users\\th1nk\\Dropbox\\YAL\\LastAction.cuneiform.txt";
+
+            Cuneiform.fileToCuneiform(from, to);
+
+            var result = File.ReadAllText("C:\\Users\\th1nk\\Dropbox\\YAL\\LastAction.cuneiform.txt");
+            label1.Text = result;
         }
     }
 }

@@ -84,6 +84,41 @@ namespace CryptLib
             return (Char.ConvertFromUtf32(TENS[tensCount]) + convertDecimal(decimalNumber));
         }
 
+        internal static Queue<int> stringToIntegerQueue(string s)
+        {
+            var acc = new Queue<int>();
+
+            foreach (char c in s)
+            {
+                acc.Enqueue((int)c);
+            }
+
+            return acc;
+        }
+
+        internal static String processIntegerQueue(Queue<int> queue)
+        {
+            string acc = String.Empty;
+
+            while (queue.ItemsRemaining > 0)
+            {
+                acc += getCuneiformNumber(queue.Dequeue());
+            }
+
+            return acc;
+        }
+
+        public static void fileToCuneiform(string from, string to)
+        {
+            string contents = File.ReadAllText(from);
+            Queue<int> queue = stringToIntegerQueue(contents);
+            string cuneiform = processIntegerQueue(queue);
+            File.WriteAllText(to, cuneiform);
+        }
+
+        // Doesn't work
+        // Actually might work but idk
+        /*
         internal static Queue<Int64> bytesToInt64Queue(byte[] bytes)
         {
             var acc = new Queue<Int64>();
@@ -117,18 +152,7 @@ namespace CryptLib
 
             return acc;
         }
-
-        internal static String processIntegerQueue(Queue<Int64> queue)
-        {
-            string acc = String.Empty;
-
-            while(queue.ItemsRemaining > 0)
-            {
-                acc += getCuneiformNumber(queue.Dequeue());
-            }
-
-            return acc;
-        }
+        */
 
         // Requires prior path validation
         // Also doesn't seem to work
